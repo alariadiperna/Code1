@@ -4,42 +4,58 @@ int b;
 int a2, b2;
 int a3, b3;
 int a4, b4;
+int a5, b5; 
 boolean buttonClicked;
 boolean buttonClicked2;
 boolean buttonClicked3;
 boolean buttonClicked4;
+boolean buttonClicked5;
 float dist;
 int size;
 PImage imgmytrueform;
 PImage imgplayingnice;
+PImage imghand;
+int c=2;
+int d=2;
+float hand;
+
+//arrays kept getting messed up so I reverted it back to the long form
 
 void setup(){
   size(800, 800);
   noStroke();
-  a = width/4; 
-  b = height/4; 
-  a2 = CENTER+400;
-  b2 = CENTER+380;
-  a3 = CENTER+200;
-  b3 = CENTER+680;
-  a4= CENTER+600;
-  b4= CENTER+680;
+  a = 175; 
+  b = 250; 
+  a2 = 400;
+  b2 = 380;
+  a3 = 200;
+  b3 = 680;
+  a4= 600;
+  b4= 680;
+  a5 = 80; 
+  b5 = 680;
   size = 100; 
+  
   fill(0);
   smooth();
+  
   imgmytrueform = loadImage("yaboilucifer.png");
   imgplayingnice = loadImage("yaboiangel.png");
+  imghand = loadImage("bye.jpg");
+  
 
 }
 void draw(){
 //did push/pop matrixes because it would rotate my buttonClicked2 without them
+    
     if(buttonClicked){
       pushMatrix();
       background(255); 
     fill(200,20,10); 
     ellipse(a2, b2, size/2, size/2);
     textSize(30);
-    text("Oh you just had to press it...", width/4, 600);
+    text("Oh you just had to push it...", width/4, 600);
+     
      if(frameCount % 170 ==0){
        background(255);
 }
@@ -54,20 +70,52 @@ void draw(){
 }
   endShape();
       popMatrix();
+      
   }else{
     pushMatrix();
     background(255); 
     fill(200,20,10); 
+        textSize(40);
+  text("Do not push", width/3, 300);
     ellipse(a, b, size, size); 
-      textSize(60);
-  text("Do not press", width/3, 300);
+    
+    //make sure to look closely for this button
+    fill(245);  
+    textSize(20);
+  text("You can push me", width/6, 700);
+    ellipse(a5, b5, size/2, size/2);
+ 
   popMatrix();
+   if(buttonClicked5){
+     pushMatrix();
+     background(255);
+     fill(200,20,10);
+    textSize(20);
+   text("Okay cool you can go home now.", width/5,300); 
+   
+   frameRate(15);
+   translate(c/2,d/2);
+   hand+=5;
+   d+=8;
+   scale(1.5); 
+  rotate(radians(hand)); 
+  image(imghand, c, d, size*4, size*4);
+  while (c >= width/2) {
+    c = 0;
+    d += 20;
+  }
+  while(d >= height/2){
+    background(255); 
+    d = 0; 
+  }
+ popMatrix(); 
+ }
   }
   
   if(buttonClicked2){
     pushMatrix();
     background(200,20,10);
-   fill(255);
+    fill(255);
     ellipse(a3, b3, size/2, size/2);
     ellipse(a4, b4, size/2, size/2);
     textSize(20);
@@ -90,8 +138,8 @@ void draw(){
     image(imgmytrueform, a, b, size*4, size*4);
     textSize(25);
     fill(200,20,10);
-    text("Oh hey there sweet cheeks",width/3,200);
-    text("Nice of you to join me", width/3,700);
+    text("Oh hey there sweet cheeks.",width/3,200);
+    text("Nice of you to join me.", width/3,700);
     popMatrix();
       }
  
@@ -103,8 +151,9 @@ if(buttonClicked4){
  text("Thank you for pressing our button!",width/4,200);
  text("This is your... eternal reward...", width/4,700);
  }
+ 
 }
- //println(calcDistance(a, b)); 
+ 
 
 void mousePressed(){
   if(calcDistance(a,b) <= size/2){
@@ -119,11 +168,15 @@ void mousePressed(){
   if(calcDistance(a4,b4) <= size/4){
     buttonClicked4 = !buttonClicked4; 
   }
+  if(calcDistance(a5,b5) <= size/4){
+    buttonClicked5 = !buttonClicked5; 
+  }
 }
 
 float calcDistance(int xPos, int yPos){
     dist = dist(mouseX, mouseY, xPos, yPos);
     return dist; 
+     
     }
 
 
