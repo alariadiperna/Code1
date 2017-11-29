@@ -1,0 +1,7 @@
+class Notes{
+
+  Notes(){
+    
+  }
+  
+}
